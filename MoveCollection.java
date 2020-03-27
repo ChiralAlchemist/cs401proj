@@ -113,4 +113,4 @@ public class MoveCollection {
 	}
 		
 		
-} // end of MoveCollection class
+} 

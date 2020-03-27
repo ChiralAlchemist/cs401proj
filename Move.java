@@ -31,4 +31,4 @@ public class Move {
 	public String getMoveTypeCat() { return moveTypeCategory; }
 	public int getMoveDamage() { return moveDmg; }
 	
-} // end of Move class
+} 

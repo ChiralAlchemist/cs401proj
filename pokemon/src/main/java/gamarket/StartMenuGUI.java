@@ -88,28 +88,27 @@ public class StartMenuGUI extends Application {
         Scanner userDB = null;
         try {
             userDB = new Scanner(inFile);
+            while(userDB.hasNextLine()){
+                String data = userDB.nextLine();
+                int indexOfFirstComma = data.indexOf(",");
+                int indexOfLastComma = data.lastIndexOf(",");
+                String email = data.substring(0,indexOfFirstComma );
+                String name = data.substring( (indexOfFirstComma+1),indexOfLastComma);
+                String pass = data.substring((indexOfLastComma+1), data.length());
+    
+                if( (name.compareToIgnoreCase(un) == 0 || email.compareToIgnoreCase(un) == 0) && pass.compareTo(pw) == 0 ){
+                    verified = true;
+                    System.out.println("user found & logged in successfully"); // stub code
+                    newUser = false;
+                    break;
+                } else if( (name.compareToIgnoreCase(un) == 0 || email.compareToIgnoreCase(un) == 0) && pass.compareTo(pw) != 0){
+                    verified = false;
+                    System.out.println("incorrect username or password"); // stub code
+                    break;
+                }
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-
-        while(userDB.hasNextLine()){
-            String data = userDB.nextLine();
-            int indexOfFirstComma = data.indexOf(",");
-            int indexOfLastComma = data.lastIndexOf(",");
-            String email = data.substring(0,indexOfFirstComma );
-            String name = data.substring( (indexOfFirstComma+1),indexOfLastComma);
-            String pass = data.substring((indexOfLastComma+1), data.length());
-
-            if( (name.compareToIgnoreCase(un) == 0 || email.compareToIgnoreCase(un) == 0) && pass.compareTo(pw) == 0 ){
-                verified = true;
-                System.out.println("user found & logged in successfully"); // stub code
-                newUser = false;
-                break;
-            } else if( (name.compareToIgnoreCase(un) == 0 || email.compareToIgnoreCase(un) == 0) && pass.compareTo(pw) != 0){
-                verified = false;
-                System.out.println("incorrect username or password"); // stub code
-                break;
-            }
         }
 
         if(verified == null){

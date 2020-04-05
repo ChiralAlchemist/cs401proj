@@ -104,60 +104,62 @@ public class Player {
         String filePath = "./pokemon/databaseFiles/userProfiles/" + fileName + "_profile.txt";
         File inFile = new File(filePath);
 
-        Scanner scanner = null;
+        Scanner scanner;// = null;
         try {
             scanner = new Scanner(inFile);
+            int line = 1;
+            while (scanner.hasNextLine()) {
+                String data = scanner.nextLine();
+                String temp1;
+                String temp2;
+                String temp3;
+                switch (line) {
+                    case 1:
+                        int indexOfFirstComma = data.indexOf(",");
+                        int indexOfLastComma = data.lastIndexOf(",");
+                        temp1 = data.substring(0, indexOfFirstComma);
+                        temp2 = data.substring((indexOfFirstComma + 1), indexOfLastComma);
+                        temp3 = data.substring((indexOfLastComma + 1), data.length());
+                        this.name = temp1;
+                        this.email = temp2;
+                        this.password = temp3;
+                        break;
+                    case 2:
+                        indexOfFirstComma = data.indexOf(",");
+                        indexOfLastComma = data.lastIndexOf(",");
+                        temp1 = data.substring(0, indexOfFirstComma);
+                        temp2 = data.substring((indexOfFirstComma + 1), indexOfLastComma);
+                        temp3 = data.substring((indexOfLastComma + 1), data.length());
+                        this.badges = Integer.parseInt(temp1);
+                        this.money = Double.parseDouble(temp2);
+                        this.totalPokemon = Integer.parseInt(temp3);
+                        break;
+                    case 3:
+                        indexOfFirstComma = data.indexOf(",");
+                        indexOfLastComma = data.lastIndexOf(",");
+                        temp1 = data.substring(0, indexOfFirstComma);
+                        temp2 = data.substring((indexOfFirstComma + 1), indexOfLastComma);
+                        temp3 = data.substring((indexOfLastComma + 1), data.length());
+                        this.joinDate = temp1;
+                        this.totalTime = temp2;
+                        this.grid.loadData(temp3);
+                        break;
+                    case 4:
+                        indexOfFirstComma = data.indexOf(",");
+                        indexOfLastComma = data.lastIndexOf(",");
+                        temp1 = data.substring(0, indexOfFirstComma);
+                        temp2 = data.substring((indexOfFirstComma + 1), indexOfLastComma);
+                        this.pokeTeam.loadData(temp1);
+                        this.pokeDex.loadData(temp2);
+                        break;
+                }
+                line++;
+            }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        int line = 1;
-        while (scanner.hasNextLine()) {
-            String data = scanner.nextLine();
-            String temp1;
-            String temp2;
-            String temp3;
-            switch (line) {
-                case 1:
-                    int indexOfFirstComma = data.indexOf(",");
-                    int indexOfLastComma = data.lastIndexOf(",");
-                    temp1 = data.substring(0, indexOfFirstComma);
-                    temp2 = data.substring((indexOfFirstComma + 1), indexOfLastComma);
-                    temp3 = data.substring((indexOfLastComma + 1), data.length());
-                    this.name = temp1;
-                    this.email = temp2;
-                    this.password = temp3;
-                    break;
-                case 2:
-                    indexOfFirstComma = data.indexOf(",");
-                    indexOfLastComma = data.lastIndexOf(",");
-                    temp1 = data.substring(0, indexOfFirstComma);
-                    temp2 = data.substring((indexOfFirstComma + 1), indexOfLastComma);
-                    temp3 = data.substring((indexOfLastComma + 1), data.length());
-                    this.badges = Integer.parseInt(temp1);
-                    this.money = Double.parseDouble(temp2);
-                    this.totalPokemon = Integer.parseInt(temp3);
-                    break;
-                case 3:
-                    indexOfFirstComma = data.indexOf(",");
-                    indexOfLastComma = data.lastIndexOf(",");
-                    temp1 = data.substring(0, indexOfFirstComma);
-                    temp2 = data.substring((indexOfFirstComma + 1), indexOfLastComma);
-                    temp3 = data.substring((indexOfLastComma + 1), data.length());
-                    this.joinDate = temp1;
-                    this.totalTime = temp2;
-                    this.grid.loadData(temp3);
-                    break;
-                case 4:
-                    indexOfFirstComma = data.indexOf(",");
-                    indexOfLastComma = data.lastIndexOf(",");
-                    temp1 = data.substring(0, indexOfFirstComma);
-                    temp2 = data.substring((indexOfFirstComma + 1), indexOfLastComma);
-                    this.pokeTeam.loadData(temp1);
-                    this.pokeDex.loadData(temp2);
-                    break;
-            }
-            line++;
-        }
+        
     }
 
     /**
